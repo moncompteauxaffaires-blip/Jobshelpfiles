@@ -1,79 +1,39 @@
-# Jobshelpfiles
+# Jobshelp files
 
 Marketplace professionnelle de vente de fichiers numériques.
 
-## Objectif
+## Liens existants
 
-JobsHelp est une plateforme de vente de fichiers numériques destinée aux professionnels, créateurs, formateurs et vendeurs indépendants. La plateforme permet :
-- la publication de produits numériques,
-- la gestion des commandes,
-- les paiements sécurisés,
-- la validation des fichiers,
-- la commission sur les ventes,
-- la gestion des remboursements et des versements.
+- Version web : https://d3a30ca3-be48-44eb-85ac-1b823f401a5d-00-2ej8kz4e12sto.archer.replit.dev/jobshelp-web/?nativeBrowserPresentationStyle=fullScreen
+- Version mobile : https://d3a30ca3-be48-44eb-85ac-1b823f401a5d-00-2ej8kz4e12sto.expo.archer.replit.dev/?nativeBrowserPresentationStyle=fullScreen
 
-## Spécifications officielles
+## Cahier des charges
 
-Voir le document :
-- `SPECIFICATIONS-JOBSHELP.md`
+- [Spécifications officielles](SPECIFICATIONS-JOBSHELP.md)
+- [Architecture](docs/architecture.md)
+- [Structure technique proposée](docs/project-structure.md)
+- [API V1](docs/api-v1.md)
+- [Schéma PostgreSQL V1](docs/database-schema-v1.sql)
+- [Plan de développement sur 4 semaines](docs/roadmap-4-weeks.md)
+- [Sécurité et plan de tests](docs/security-and-tests.md)
+- [Roadmap détaillée](docs/roadmap.md)
+- [Modèle de données descriptif](docs/database.md)
 
-## Stack recommandée
+## Stack de référence proposée
 
-Pour aller vite sans perdre en qualité :
-- Frontend : Next.js / React
-- Backend : Node.js / NestJS ou Laravel
+- Web : Next.js (App Router) avec TypeScript
+- API : Route Handlers Next.js pour le MVP, isolables ensuite en service dédié
 - Base de données : PostgreSQL
-- Paiements : Stripe Connect + Stripe Checkout
-- Stockage fichiers : S3-compatible / Supabase Storage / Cloudinary
-- Authentification : NextAuth / Auth.js ou JWT sécurisé
-- Déploiement : Vercel + Render / Railway / DigitalOcean
+- Paiement : Stripe Checkout et Stripe Connect, d’abord en mode test
+- Fichiers : stockage objet privé compatible S3 avec liens temporaires
+- Tests : Vitest, tests d’intégration API et Playwright pour les parcours critiques
 
-## Modules principaux
+Cette stack est une proposition de départ à valider avant le développement. Le dépôt contient le cahier des charges et les documents de conception ; ces fichiers ne constituent pas encore une application complète prête à déployer.
 
-1. Authentification et profils
-2. Catalogue de fichiers
-3. Espace vendeur
-4. Espace acheteur
-5. Panier et checkout
-6. Paiements et remboursements
-7. Admin dashboard
-8. Commissions et versements
-9. Sécurité et rôles
+## Principes non négociables
 
-## Roadmap rapide
-
-- Phase 1 : Auth, comptes, rôles, catalogue, validation
-- Phase 2 : Panier, checkout, paiements test, téléchargements
-- Phase 3 : Ventes, commissions, versements, historique
-- Phase 4 : Admin, remboursements, reporting
-- Phase 5 : Sécurité, optimisation, mise en production
-
-## règles de projet
-
-- Pas de secrets dans le code public
-- Pas de paiements réels avant validation complète
-- Tester chaque module avant de passer au suivant
-- Garder un code propre et versionné via GitHub
-- Faire des sauvegardes régulières
-
-## Démarrage conseillé
-
-1. Créer les comptes et les rôles
-2. Définir le schéma de données
-3. Développer l’authentification
-4. Construire le catalogue
-5. Implémenter le panier
-6. Brancher Stripe en mode test
-7. Valider les fichiers côté admin
-8. Déployer uniquement en environnement sécurisé
-
-## Fichiers du dépôt
-
-- `SPECIFICATIONS-JOBSHELP.md` — cahier des charges officiel
-- `docs/roadmap.md` — plan de développement
-- `docs/architecture.md` — architecture logique
-- `docs/database.md` — schéma de données initial
-
-## Prochaine étape
-
-Le dépôt est prêt pour la mise en place de la structure technique et du développement progressive de la plateforme.
+- Aucun paiement réel avant validation complète et accord explicite de mise en production.
+- Aucun secret, mot de passe, clé privée ou donnée bancaire sensible dans Git.
+- Fichiers numériques en stockage privé ; téléchargement seulement après confirmation serveur du paiement.
+- Les événements de paiement sont vérifiés par signature et traités de manière idempotente.
+- Les règles de commissions sont versionnées et enregistrées sur chaque commande.
